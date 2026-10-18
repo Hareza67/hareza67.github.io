@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hareza · UGC Creator</title>
+<meta name="description" content="UGC creator and video editor. Short-form ads and long-form edits for brands on TikTok, Instagram Reels and paid social.">
+<meta property="og:title" content="Hareza · UGC Creator">
+<meta property="og:description" content="Videos that sell without looking like ads. Short-form UGC and long-form edits.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hareza67.github.io/">
+<meta property="og:image" content="https://hareza67.github.io/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#c4552d">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;600;800&display=swap">
+<style>
+/* Layout: clean editorial portfolio. Big name, quiet ticker, phone and TV frames, simple package cards. Single light theme by choice. */
+:root{--bg:#f6f3ee;--card:#fff;--fg:#1a1a1a;--muted:#6b6560;--line:#e2dcd3;--accent:#c4552d;
+--display:"Anton",Impact,"Arial Narrow",sans-serif;--body:"DM Sans",system-ui,sans-serif;color-scheme:light}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden;margin:0}
+.g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1100px;margin:0 auto}
+.hero{padding-block:48px 32px;position:relative}
+.rec{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--body);letter-spacing:.14em;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 14px}
+.rec i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.3}}
+h1{font:400 clamp(4rem,24vw,13rem)/.85 var(--display);margin:18px 0 0;text-transform:uppercase;letter-spacing:-.01em}
+h1 span{color:transparent;-webkit-text-stroke:2px var(--fg)}
+.tag{font:400 clamp(1.6rem,5vw,2.6rem)/1.05 var(--display);text-transform:uppercase;margin:22px 0 12px;color:var(--fg)}
+.tag em{font-style:normal;color:var(--accent)}
+.lead{max-width:56ch;color:var(--muted);font-size:17px;margin:0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{font:600 15px var(--body);text-decoration:none;padding:14px 22px;border-radius:10px;background:var(--fg);color:#fff;border:1.5px solid var(--fg);transition:background .15s,border-color .15s,color .15s}
+.btn:hover{background:var(--accent);border-color:var(--accent)}
+.btn.ghost{background:transparent;color:var(--fg)}
+.btn.ghost:hover{background:var(--fg);border-color:var(--fg);color:#fff}
+.btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.stats div{font:400 2.4rem/1 var(--display);color:var(--fg)}
+.stats small{display:block;font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.marq{background:var(--fg);color:var(--bg);margin:40px 0;overflow:hidden;white-space:nowrap}
+.marq div{display:inline-block;font:400 1.35rem/1 var(--display);letter-spacing:.04em;text-transform:uppercase;padding:14px 0;animation:slide 30s linear infinite}
+.marq b{color:var(--accent);margin:0 22px;font-weight:400}
+@keyframes slide{to{transform:translateX(-50%)}}
+h2{font:400 clamp(2.4rem,8vw,4.4rem)/.95 var(--display);text-transform:uppercase;margin:0 0 24px}
+h2 b{color:var(--accent);font-weight:400}
+section{padding-block:40px}
+.reels{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.phone{border-radius:26px;border:1px solid var(--line);padding:6px;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.phone:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 16px 32px rgba(0,0,0,.1)}
+.screen{aspect-ratio:9/16;max-width:100%;border-radius:20px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;color:#fff}
+.s1{background:linear-gradient(160deg,#ff8fc0,#ff2e88 50%,#5a0f6e)}
+.s2{background:linear-gradient(160deg,#ffe58a,#ff9a3c 50%,#7a2a10)}
+.s3{background:linear-gradient(160deg,#9cf0ff,#38a6ff 50%,#1c1a6e)}
+.play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.25);backdrop-filter:blur(4px);display:grid;place-items:center}
+.play::after{content:"";border-left:20px solid #fff;border-block:12px solid transparent;margin-left:5px}
+.hook{position:absolute;top:18px;left:14px;right:14px;font:800 15px/1.25 var(--body);background:#fff;color:#111;padding:6px 10px;border-radius:8px;transform:rotate(-2deg)}
+.screen b{font:400 1.5rem/1 var(--display);text-transform:uppercase}
+.screen small{opacity:.9;font-weight:600}
+.what{display:flex;flex-wrap:wrap;gap:12px}
+.what span{font:600 15px var(--body);padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.pack{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;gap:12px;align-content:start;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.pack.hot{border:2px solid var(--accent)}
+.pack h3{font:400 2rem/1 var(--display);text-transform:uppercase;margin:0}
+.pack ul{margin:0;padding-left:20px;color:var(--muted)}
+.badge{justify-self:start;font:700 11px var(--body);letter-spacing:.12em;background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px}
+.contact{background:var(--fg);color:var(--bg);border-radius:24px;padding:44px 24px;display:grid;gap:18px;text-align:center;margin-bottom:40px}
+.contact h2{margin:0}.contact h2 b{color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;font:600 1.15rem var(--body)}
+.row code{font:inherit;user-select:all;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px 14px;border-radius:10px;min-width:0;overflow-wrap:anywhere}
+button{font:600 13px var(--body);background:var(--accent);color:#fff;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+a.phone{display:block;color:inherit;text-decoration:none}
+a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.sub{color:var(--muted);margin:-12px 0 22px;font-weight:600}
+.reels{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.soon{border-style:dashed;border-color:var(--muted);background:transparent}
+.soon:hover{transform:none}
+.soon .screen,.soon .wide{background:var(--bg);color:var(--muted);align-items:center;justify-content:center;text-align:center}
+.longs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.tv{display:block;border-radius:18px;border:1px solid var(--line);padding:6px;background:var(--card);color:inherit;text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.tv:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 16px 32px rgba(0,0,0,.1)}
+.wide{aspect-ratio:16/9;max-width:100%;border-radius:12px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;color:#fff}
+.wide b{font:400 1.5rem/1 var(--display);text-transform:uppercase}
+.num{position:absolute;top:10px;left:14px;font:400 2.6rem/1 var(--display);color:var(--accent);opacity:.8}
+.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.vid .play{border:0;padding:0;cursor:pointer;z-index:2;width:42px;height:42px;inset:12px 12px auto auto;margin:0;background:rgba(0,0,0,.45)}
+.vid .play::after{border-left-width:15px;border-block-width:9px;margin-left:4px}
+.vid .screen::after,.vid .wide::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(transparent,rgba(0,0,0,.75));pointer-events:none;transition:opacity .2s}
+.vid.hov .screen::after,.vid.hov .wide::after,.vid.on .screen::after,.vid.on .wide::after{opacity:0}.vid .cap,.vid .num{z-index:1;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.vid .cap{position:relative;display:grid}
+.vid .num{display:none}
+.vid .play,.vid .cap,.vid .num{transition:opacity .2s}
+.vid.hov .play,.vid.hov .cap,.vid.hov .num{opacity:0}
+.vid.on .play,.vid.on .cap,.vid.on .num{display:none}
+.vid.on:hover{transform:none}
+@media (max-width:640px){.longs{grid-template-columns:1fr}}
+@media (max-width:640px){.reels{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:10px}.phone{flex:0 0 70%;scroll-snap-align:center}.phone:hover{transform:none}.stats{gap:20px}.stats div{font-size:2rem}.cta .btn{flex:1;text-align:center}}
+@media (min-width:1000px){.hero{display:grid;grid-template-columns:1.3fr 1fr;column-gap:40px;align-items:end}.hero>*{grid-column:1}h1{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="g hero">
+  <div class="rec"><i></i>REC · UGC CREATOR</div>
+  <h1>Hare<span>za</span></h1>
+  <p class="tag">Videos that <em>sell</em> without looking like ads</p>
+  <p class="lead">Real-feel vertical content for brands on TikTok, Instagram Reels and paid social. Scroll-stopping hooks, honest reactions, and edits built to convert.</p>
+  <div class="cta"><a class="btn" href="#book">Book a video</a><a class="btn ghost" href="#work">See my work</a></div>
+  <div class="stats">
+    <div>50+<small>Videos made</small></div>
+    <div>3s<small>Hook or bust</small></div>
+    <div>48h<small>Typical turnaround</small></div>
+  </div>
+</div>
+
+<div class="marq" aria-hidden="true"><div>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Voiceovers<b>✦</b>Try-ons<b>✦</b>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Voiceovers<b>✦</b>Try-ons<b>✦</b></div></div>
+
+<section class="g" id="work">
+  <h2>Hit <b>play</b></h2>
+  <p class="sub">Short-form UGC · hover to preview, click for sound</p>
+  <div class="reels">
+    <div class="phone vid"><div class="screen s1"><video src="videos/s01.mp4" poster="videos/s01.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play UGC Video 01 with sound"></button><div class="cap"><b>UGC Video 01</b><small>Short-form · 1:46</small></div></div></div>
+    <div class="phone vid"><div class="screen s2"><video src="videos/s02.mp4" poster="videos/s02.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play UGC Video 02 with sound"></button><div class="cap"><b>UGC Video 02</b><small>Short-form · 0:40</small></div></div></div>
+    <div class="phone vid"><div class="screen s1"><video src="videos/s04.mp4" poster="videos/s04.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Disney's with sound"></button><div class="cap"><b>Disney's</b><small>Short-form · 0:44</small></div></div></div>
+    <div class="phone vid"><div class="screen s2"><video src="videos/s05.mp4" poster="videos/s05.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Dreampainter with sound"></button><div class="cap"><b>Dreampainter</b><small>Short-form · 0:43</small></div></div></div>
+    <div class="phone vid"><div class="screen s3"><video src="videos/s06.mp4" poster="videos/s06.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Hook + Body with sound"></button><div class="cap"><b>Hook + Body</b><small>Short-form · 2:41</small></div></div></div>
+    <div class="phone vid"><div class="screen s1"><video src="videos/s07.mp4" poster="videos/s07.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Reel 4 with sound"></button><div class="cap"><b>Reel 4</b><small>Short-form · 1:52</small></div></div></div>
+  </div>
+</section>
+
+<section class="g" id="long">
+  <h2>Long-<b>form</b></h2>
+  <p class="sub">Full-length stories, AI dramas and brand films · 16:9</p>
+  <div class="longs">
+    <div class="tv vid"><div class="wide"><video src="videos/l01.mp4" poster="videos/l01.jpg" preload="none" playsinline muted></video><button class="play" aria-label="Play Fousey with sound"></button><span class="num">01</span><div class="cap"><b>Fousey</b><small>Long-form · 0:55</small></div></div></div>
+    <div class="tv vid"><div class="wide"><video src="videos/l02.mp4" poster="videos/l02.jpg" preload="none" playsinline muted></video><button class="play" aria-label="Play Gavin with sound"></button><span class="num">02</span><div class="cap"><b>Gavin</b><small>Long-form · 17:34</small></div></div></div>
+    <div class="tv vid"><div class="wide"><video src="videos/l03.mp4" poster="videos/l03.jpg" preload="none" playsinline muted></video><button class="play" aria-label="Play Invincible with sound"></button><span class="num">03</span><div class="cap"><b>Invincible</b><small>Long-form · 13:03</small></div></div></div>
+    <div class="tv vid"><div class="wide"><video src="videos/l04.mp4" poster="videos/l04.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play King Julian with sound"></button><span class="num">04</span><div class="cap"><b>King Julian</b><small>Long-form · 0:16</small></div></div></div>
+  </div>
+</section>
+
+<section class="g">
+  <h2>What I <b>shoot</b></h2>
+  <div class="what"><span>Product demos</span><span>Unboxings</span><span>Testimonials</span><span>Hook variations</span><span>Voiceovers</span><span>Try-on hauls</span><span>Before / after</span><span>9:16 edits</span></div>
+</section>
+
+<section class="g">
+  <h2>Pick a <b>package</b></h2>
+  <div class="packs">
+    <div class="pack"><h3>Starter</h3><ul><li>1 UGC video (up to 60s)</li><li>2 hook variations</li><li>Raw + edited files</li></ul></div>
+    <div class="pack hot"><span class="badge">MOST BOOKED</span><h3>Brand bundle</h3><ul><li>3 UGC videos</li><li>3 hooks each</li><li>30-day ad usage rights</li></ul></div>
+  </div>
+</section>
+
+<section class="g" id="book">
+  <div class="contact">
+    <h2>Let's make your <b>next ad</b></h2>
+    <div class="row"><code id="em">hareza.haroon@gmail.com</code><button id="c1">Copy email</button></div>
+    <div class="row"><code id="wa">+92 302 4822298</code><button id="c2">Copy WhatsApp</button></div>
+  </div>
+</section>
+
+<script>
+function cp(id,b){b.onclick=()=>{const el=document.getElementById(id),o=b.textContent;navigator.clipboard.writeText(el.textContent).then(()=>{b.textContent="Copied!";setTimeout(()=>b.textContent=o,1500)},()=>getSelection().selectAllChildren(el))}}
+cp('em',document.getElementById('c1'));cp('wa',document.getElementById('c2'));
+// Hover plays a muted preview; click plays with sound and controls. Only one video plays at a time.
+const cards=[...document.querySelectorAll('.vid')],canHover=matchMedia('(hover:hover)').matches;
+const stop=c=>{const v=c.querySelector('video');v.pause();c.classList.remove('hov')};
+cards.forEach(c=>{const v=c.querySelector('video');
+  if(canHover){
+    c.addEventListener('mouseenter',()=>{if(c.classList.contains('on'))return;cards.forEach(o=>{if(o!==c&&!o.classList.contains('on'))stop(o)});c.classList.add('hov');v.muted=true;v.play().catch(()=>{})});
+    c.addEventListener('mouseleave',()=>{if(!c.classList.contains('on'))stop(c)});
+  }
+  c.querySelector('.play').onclick=()=>{cards.forEach(o=>{if(o!==c){stop(o);o.classList.remove('on');o.querySelector('video').controls=false}});
+    c.classList.remove('hov');c.classList.add('on');v.controls=true;v.muted=false;v.play()};
+  v.addEventListener('ended',()=>{c.classList.remove('on');v.controls=false;v.muted=true});
+});
+</script>
