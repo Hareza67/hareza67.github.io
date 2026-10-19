@@ -14,16 +14,31 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;600;800&display=swap">
 <style>
 /* Layout: clean editorial portfolio. Big name, quiet ticker, phone and TV frames, simple package cards. Single light theme by choice. */
-:root{--bg:#f6f3ee;--card:#fff;--fg:#1a1a1a;--muted:#6b6560;--line:#e2dcd3;--accent:#c4552d;
+:root{--bg:#ededea;--card:#fff;--fg:#1a1a1a;--muted:#6b6560;--line:#e2dcd3;--accent:#c4552d;
 --display:"Anton",Impact,"Arial Narrow",sans-serif;--body:"DM Sans",system-ui,sans-serif;color-scheme:light}
 html{overflow-x:clip}
-body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden;margin:0;position:relative;isolation:isolate}
-/* Background: plain dot grid behind the content */
+body{background:#ededea;color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden;margin:0;position:relative;isolation:isolate}
+/* Background: soft wavy lines behind the content */
+/* Flow background (pattern "flow"): thin drifting curves drawn on a canvas, they bend away from the mouse */
+.flow{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none}
+body[data-pat=flow] .flow{display:block}
+body[data-pat=flow]{--pat:none;--pat-hi:none}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(rgba(26,26,26,.24) 1.3px,transparent 1.6px) 12px 12px/24px 24px}
+  background:var(--pat)}
+/* Mouse spotlight: terracotta waves on the same pattern, revealed in a soft circle around the cursor */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:var(--pat-hi);
+  -webkit-mask:radial-gradient(180px circle at var(--mx,50%) var(--my,50%),#000 0,rgba(0,0,0,.4) 45%,transparent 100%);
+  mask:radial-gradient(180px circle at var(--mx,50%) var(--my,50%),#000 0,rgba(0,0,0,.4) 45%,transparent 100%)}
+body.spot::after{opacity:1}
+/* EXAMPLE texture (easy to remove: delete this block and the .tex div): paper grain + a warm light that follows the mouse */
+.tex{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.75),transparent 70%)}
+.tex::before{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
 .g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1100px;margin:0 auto}
 .hero{padding-block:48px 32px;position:relative}
-.rec{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--body);letter-spacing:.14em;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 14px}
+.rec{justify-self:start;display:inline-flex;align-items:center;gap:8px;font:600 12px var(--body);letter-spacing:.14em;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 14px}
 .rec i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.3}}
 h1{font:400 clamp(4rem,24vw,13rem)/.85 var(--display);margin:18px 0 0;text-transform:uppercase;letter-spacing:-.01em}
@@ -44,7 +59,7 @@ h1 span{color:transparent;-webkit-text-stroke:2px var(--fg)}
 .stats div:hover small{color:rgba(255,255,255,.7)}
 .stats small{display:block;font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .marq{background:var(--fg);color:var(--bg);margin:40px 0;overflow:hidden;white-space:nowrap}
-.marq div{display:inline-block;font:400 1.35rem/1 var(--display);letter-spacing:.04em;text-transform:uppercase;padding:14px 0;animation:slide 30s linear infinite}
+.marq div{display:inline-block;font:400 1.35rem/1 var(--display);letter-spacing:.04em;text-transform:uppercase;padding:14px 0;animation:slide 80s linear infinite}
 .marq b{color:var(--accent);margin:0 22px;font-weight:400}
 @keyframes slide{to{transform:translateX(-50%)}}
 h2{font:400 clamp(2.4rem,8vw,4.4rem)/.95 var(--display);text-transform:uppercase;margin:0 0 24px}
@@ -93,7 +108,7 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
 .soon{border-style:dashed;border-color:var(--muted);background:transparent}
 .soon:hover{transform:none}
 .soon .screen,.soon .wide{background:var(--bg);color:var(--muted);align-items:center;justify-content:center;text-align:center}
-.longs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.longs{display:grid;grid-template-columns:repeat(auto-fit,minmax(max(320px,40%),1fr));gap:22px}
 .tv{display:block;border-radius:18px;border:1px solid var(--line);padding:6px;background:var(--card);color:inherit;text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
 .tv:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(0,0,0,.05),0 16px 32px rgba(0,0,0,.1)}
 .wide{aspect-ratio:16/9;max-width:100%;border-radius:12px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;color:#fff}
@@ -112,16 +127,41 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
 .vid.on:hover{transform:none}
 @media (max-width:640px){.longs{grid-template-columns:1fr}}
 @media (max-width:640px){.reels{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:10px}.phone{flex:0 0 70%;scroll-snap-align:center}.phone:hover{transform:none}.stats{gap:20px}.stats div{font-size:2rem}.cta .btn{flex:1;text-align:center}}
-@media (min-width:1000px){.hero{display:grid;grid-template-columns:1.3fr 1fr;column-gap:40px;align-items:end}.hero>*{grid-column:1}h1{grid-column:1/-1}}
+/* Jump-to navigation panel (right of the hero on wide screens, below it on narrow ones) */
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:16px}
+.jump{display:grid;margin-top:32px}
+.jump p{margin:0 0 10px;font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.jump a{display:flex;align-items:baseline;gap:16px;padding:16px 14px;border-top:1px solid rgba(26,26,26,.16);color:var(--fg);text-decoration:none;transition:background .2s,color .2s}
+.jump a:last-child{border-bottom:1px solid rgba(26,26,26,.16)}
+.jump a:hover{background:var(--fg);color:#fff}
+.jump a:hover small,.jump a:hover em{color:rgba(255,255,255,.7)}
+.jump a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.jump em{font:600 12px var(--body);font-style:normal;color:var(--accent);letter-spacing:.08em}
+.jump b{font:400 1.6rem/1 var(--display);text-transform:uppercase;flex:1}
+.jump small{font-size:13px;color:var(--muted)}
+.jump i{font-style:normal;font-size:18px;transition:transform .2s}
+.jump a:hover i{transform:translateX(4px)}
+@media (min-width:1000px){.hero{display:grid;grid-template-columns:1.3fr 1fr;column-gap:40px;align-items:end}.hero>*{grid-column:1}h1{grid-column:1/-1}.hero .jump{grid-column:2;grid-row:3/8;align-self:center;margin-top:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<body data-pat="flow">
 
+<div class="tex" aria-hidden="true"></div>
+<canvas class="flow" aria-hidden="true"></canvas>
 <div class="g hero">
   <div class="rec"><i></i>REC · UGC CREATOR</div>
   <h1>Hare<span>za</span></h1>
   <p class="tag">Videos that <em>sell</em> without looking like ads</p>
   <p class="lead">Real-feel vertical content for brands on TikTok, Instagram Reels and paid social. Scroll-stopping hooks, honest reactions, and edits built to convert.</p>
-  <div class="cta"><a class="btn" href="#book">Book a video</a><a class="btn ghost" href="#work">See my work</a></div>
+  <div class="cta"><a class="btn" href="#book">Book a video</a><a class="btn ghost" href="#ugc">See my work</a></div>
+  <nav class="jump" aria-label="Jump to work">
+    <p>Jump to</p>
+    <a href="#ugc"><em>01</em><b>UGC</b><small>2 videos</small><i>→</i></a>
+    <a href="#short"><em>02</em><b>Short-form</b><small>4 videos</small><i>→</i></a>
+    <a href="#long"><em>03</em><b>Long-form</b><small>4 videos</small><i>→</i></a>
+    <a href="#book"><em>04</em><b>Contact</b><small>Email · WhatsApp</small><i>→</i></a>
+  </nav>
   <div class="stats">
     <div>50+<small>Videos made</small></div>
     <div>3s<small>Hook or bust</small></div>
@@ -129,17 +169,24 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
   </div>
 </div>
 
-<div class="marq" aria-hidden="true"><div>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Voiceovers<b>✦</b>Try-ons<b>✦</b>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Voiceovers<b>✦</b>Try-ons<b>✦</b></div></div>
+<div class="marq" aria-hidden="true"><div>UGC ads<b>✦</b>AI UGC<b>✦</b>AI avatars<b>✦</b>AI voiceovers<b>✦</b>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Talking-head ads<b>✦</b>Try-ons<b>✦</b>Short-form edits<b>✦</b>Long-form edits<b>✦</b>Captions<b>✦</b>Color grading<b>✦</b>Sound design<b>✦</b>Motion graphics<b>✦</b>B-roll<b>✦</b>Retention edits<b>✦</b>Reels &amp; TikToks<b>✦</b>YouTube edits<b>✦</b>UGC ads<b>✦</b>AI UGC<b>✦</b>AI avatars<b>✦</b>AI voiceovers<b>✦</b>Unboxings<b>✦</b>Product demos<b>✦</b>Testimonials<b>✦</b>Hooks<b>✦</b>Talking-head ads<b>✦</b>Try-ons<b>✦</b>Short-form edits<b>✦</b>Long-form edits<b>✦</b>Captions<b>✦</b>Color grading<b>✦</b>Sound design<b>✦</b>Motion graphics<b>✦</b>B-roll<b>✦</b>Retention edits<b>✦</b>Reels &amp; TikToks<b>✦</b>YouTube edits<b>✦</b></div></div>
 
-<section class="g" id="work">
-  <h2>Hit <b>play</b></h2>
-  <p class="sub">Short-form UGC · hover to preview, click for sound</p>
+<section class="g" id="ugc">
+  <h2>Real <b>UGC</b></h2>
+  <p class="sub">Creator-style ads for brands · hover to preview, click for sound</p>
   <div class="reels">
-    <div class="phone vid"><div class="screen s1"><video src="videos/s01.mp4" poster="videos/s01.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play UGC Video 01 with sound"></button><div class="cap"><b>UGC Video 01</b><small>Short-form · 1:46</small></div></div></div>
-    <div class="phone vid"><div class="screen s2"><video src="videos/s02.mp4" poster="videos/s02.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play UGC Video 02 with sound"></button><div class="cap"><b>UGC Video 02</b><small>Short-form · 0:40</small></div></div></div>
-    <div class="phone vid"><div class="screen s1"><video src="videos/s04.mp4" poster="videos/s04.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Disney's with sound"></button><div class="cap"><b>Disney's</b><small>Short-form · 0:44</small></div></div></div>
+    <div class="phone vid"><div class="screen s1"><video src="videos/s04.mp4" poster="videos/s04.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Disney's with sound"></button><div class="cap"><b>Disney's</b><small>UGC · 0:44</small></div></div></div>
+    <div class="phone vid"><div class="screen s3"><video src="videos/s06.mp4" poster="videos/s06.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Hook + Body with sound"></button><div class="cap"><b>Hook + Body</b><small>UGC · 2:41</small></div></div></div>
+  </div>
+</section>
+
+<section class="g" id="short">
+  <h2>Short-<b>form</b></h2>
+  <p class="sub">Vertical edits · 9:16 · hover to preview, click for sound</p>
+  <div class="reels">
+    <div class="phone vid"><div class="screen s1"><video src="videos/s01.mp4" poster="videos/s01.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Troubleshooting with sound"></button><div class="cap"><b>Troubleshooting</b><small>Short-form · 1:46</small></div></div></div>
+    <div class="phone vid"><div class="screen s2"><video src="videos/s02.mp4" poster="videos/s02.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Dropshipping with sound"></button><div class="cap"><b>Dropshipping</b><small>Short-form · 0:40</small></div></div></div>
     <div class="phone vid"><div class="screen s2"><video src="videos/s05.mp4" poster="videos/s05.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Dreampainter with sound"></button><div class="cap"><b>Dreampainter</b><small>Short-form · 0:43</small></div></div></div>
-    <div class="phone vid"><div class="screen s3"><video src="videos/s06.mp4" poster="videos/s06.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Hook + Body with sound"></button><div class="cap"><b>Hook + Body</b><small>Short-form · 2:41</small></div></div></div>
     <div class="phone vid"><div class="screen s1"><video src="videos/s07.mp4" poster="videos/s07.jpg" preload="none" playsinline muted loop></video><button class="play" aria-label="Play Reel 4 with sound"></button><div class="cap"><b>Reel 4</b><small>Short-form · 1:52</small></div></div></div>
   </div>
 </section>
@@ -160,15 +207,6 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
   <div class="what"><span>Product demos</span><span>Unboxings</span><span>Testimonials</span><span>Hook variations</span><span>Voiceovers</span><span>Try-on hauls</span><span>Before / after</span><span>9:16 edits</span></div>
 </section>
 
-<section class="g">
-  <h2>Pick a <b>package</b></h2>
-  <div class="packs">
-    <div class="pack"><span class="badge trial">TRY ME FIRST</span><h3>Trial</h3><ul><li>1 trial video (15s) for free</li><li>Or 2 UGC videos as a paid trial</li><li>See my style before you commit</li></ul></div>
-    <div class="pack"><h3>Starter</h3><ul><li>1 UGC video (up to 60s)</li><li>2 hook variations</li><li>Raw + edited files</li></ul></div>
-    <div class="pack hot"><span class="badge">MOST BOOKED</span><h3>Brand bundle</h3><ul><li>3 UGC videos</li><li>3 hooks each</li><li>30-day ad usage rights</li></ul></div>
-  </div>
-</section>
-
 <section class="g" id="book">
   <div class="contact">
     <h2>Let's make your <b>next ad</b></h2>
@@ -180,6 +218,29 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
 <script>
 function cp(id,b){b.onclick=()=>{const el=document.getElementById(id),o=b.textContent;navigator.clipboard.writeText(el.textContent).then(()=>{b.textContent="Copied!";setTimeout(()=>b.textContent=o,1500)},()=>getSelection().selectAllChildren(el))}}
 cp('em',document.getElementById('c1'));cp('wa',document.getElementById('c2'));
+// Flow background: ~26 thin curves that drift slowly and bend away from the cursor
+{const cv=document.querySelector('.flow'),cx=cv.getContext('2d');let W,H,dpr,t=0,mx=-9999,my=-9999,tx=-9999,ty=-9999;
+ const N=26,STEP=24,still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)};
+ size();addEventListener('resize',size);
+ addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
+ document.addEventListener('pointerleave',()=>{tx=ty=-9999});
+ const frame=()=>{if(document.body.dataset.pat!=='flow'){requestAnimationFrame(frame);return}
+  t+=still?0:.0025;mx+=(tx-mx)*.05;my+=(ty-my)*.05;cx.clearRect(0,0,W,H);
+  for(let i=0;i<N;i++){const base=H*(i+.5)/N,acc=i%9===4,amp=18+14*Math.sin(i*1.7);
+   cx.beginPath();
+   for(let x=-STEP;x<=W+STEP;x+=STEP){
+    let y=base+Math.sin(x*.0032+i*.55+t*2)*amp+Math.sin(x*.0011-t+i)*amp*1.6;
+    const dx=x-mx,dy=y-my,d2=dx*dx+dy*dy,R=110;
+    if(d2<R*R*4){const d=Math.sqrt(d2)||1,f=Math.exp(-(d*d)/(2*R*R))*9;y+=dy/d*f}
+    x===-STEP?cx.moveTo(x,y):cx.lineTo(x,y)}
+   cx.strokeStyle=acc?'rgba(196,85,45,.55)':'rgba(26,26,26,.10)';cx.lineWidth=acc?1.4:1;cx.stroke()}
+  requestAnimationFrame(frame)};
+ requestAnimationFrame(frame)}
+// Background dots react to the mouse (desktop only)
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){const r=document.documentElement.style;let raf=0,x=0,y=0;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;document.body.classList.add('spot');if(!raf)raf=requestAnimationFrame(()=>{r.setProperty('--mx',x+'px');r.setProperty('--my',y+'px');raf=0})},{passive:true});
+  document.addEventListener('pointerleave',()=>document.body.classList.remove('spot'));}
 // Hover plays a muted preview; click plays with sound and controls. Only one video plays at a time.
 const cards=[...document.querySelectorAll('.vid')],canHover=matchMedia('(hover:hover)').matches;
 const stop=c=>{const v=c.querySelector('video');v.pause();c.classList.remove('hov')};
