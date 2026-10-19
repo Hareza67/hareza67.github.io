@@ -16,7 +16,11 @@
 /* Layout: clean editorial portfolio. Big name, quiet ticker, phone and TV frames, simple package cards. Single light theme by choice. */
 :root{--bg:#f6f3ee;--card:#fff;--fg:#1a1a1a;--muted:#6b6560;--line:#e2dcd3;--accent:#c4552d;
 --display:"Anton",Impact,"Arial Narrow",sans-serif;--body:"DM Sans",system-ui,sans-serif;color-scheme:light}
-body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden;margin:0}
+html{overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);overflow-x:hidden;margin:0;position:relative;isolation:isolate}
+/* Background: plain dot grid behind the content */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(rgba(26,26,26,.24) 1.3px,transparent 1.6px) 12px 12px/24px 24px}
 .g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1100px;margin:0 auto}
 .hero{padding-block:48px 32px;position:relative}
 .rec{display:inline-flex;align-items:center;gap:8px;font:600 12px var(--body);letter-spacing:.14em;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:5px 14px}
@@ -29,12 +33,15 @@ h1 span{color:transparent;-webkit-text-stroke:2px var(--fg)}
 .lead{max-width:56ch;color:var(--muted);font-size:17px;margin:0}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .btn{font:600 15px var(--body);text-decoration:none;padding:14px 22px;border-radius:10px;background:var(--fg);color:#fff;border:1.5px solid var(--fg);transition:background .15s,border-color .15s,color .15s}
-.btn:hover{background:var(--accent);border-color:var(--accent)}
+.btn:hover{background:#fff;color:var(--fg);border-color:var(--fg)}
 .btn.ghost{background:transparent;color:var(--fg)}
 .btn.ghost:hover{background:var(--fg);border-color:var(--fg);color:#fff}
 .btn:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
-.stats div{font:400 2.4rem/1 var(--display);color:var(--fg)}
+.stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:36px}
+.stats{margin-left:-14px}
+.stats div{font:400 2.4rem/1 var(--display);color:var(--fg);padding:12px 14px;border-radius:12px;transition:background .2s,color .2s}
+.stats div:hover{background:var(--fg);color:#fff}
+.stats div:hover small{color:rgba(255,255,255,.7)}
 .stats small{display:block;font:600 12px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .marq{background:var(--fg);color:var(--bg);margin:40px 0;overflow:hidden;white-space:nowrap}
 .marq div{display:inline-block;font:400 1.35rem/1 var(--display);letter-spacing:.04em;text-transform:uppercase;padding:14px 0;animation:slide 30s linear infinite}
@@ -56,18 +63,29 @@ section{padding-block:40px}
 .screen b{font:400 1.5rem/1 var(--display);text-transform:uppercase}
 .screen small{opacity:.9;font-weight:600}
 .what{display:flex;flex-wrap:wrap;gap:12px}
-.what span{font:600 15px var(--body);padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.what span{font:600 15px var(--body);padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:default;transition:background .2s,color .2s,border-color .2s}
+.what span:hover{background:var(--fg);color:#fff;border-color:var(--fg)}
 .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
 .pack{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;gap:12px;align-content:start;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
 .pack.hot{border:2px solid var(--accent)}
+.pack{transition:background .2s,color .2s,border-color .2s}
+.pack:hover{background:var(--fg);color:#fff;border-color:var(--fg)}
+.pack:hover ul{color:rgba(255,255,255,.75)}
+.pack:hover .badge.trial{background:#fff;color:var(--fg)}
+.pack{grid-template-rows:22px auto 1fr}
+.pack>h3:first-child{grid-row:2}
+.pack>h3:first-child+ul{grid-row:3}
 .pack h3{font:400 2rem/1 var(--display);text-transform:uppercase;margin:0}
 .pack ul{margin:0;padding-left:20px;color:var(--muted)}
 .badge{justify-self:start;font:700 11px var(--body);letter-spacing:.12em;background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px}
+.badge.trial{background:var(--fg)}
 .contact{background:var(--fg);color:var(--bg);border-radius:24px;padding:44px 24px;display:grid;gap:18px;text-align:center;margin-bottom:40px}
 .contact h2{margin:0}.contact h2 b{color:var(--accent)}
 .row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;font:600 1.15rem var(--body)}
 .row code{font:inherit;user-select:all;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px 14px;border-radius:10px;min-width:0;overflow-wrap:anywhere}
 button{font:600 13px var(--body);background:var(--accent);color:#fff;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+.row button{transition:background .2s,color .2s}
+.row button:hover{background:#fff;color:var(--fg)}
 a.phone{display:block;color:inherit;text-decoration:none}
 a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .sub{color:var(--muted);margin:-12px 0 22px;font-weight:600}
@@ -145,6 +163,7 @@ a.phone:focus-visible,a.tv:focus-visible{outline:2px solid var(--accent);outline
 <section class="g">
   <h2>Pick a <b>package</b></h2>
   <div class="packs">
+    <div class="pack"><span class="badge trial">TRY ME FIRST</span><h3>Trial</h3><ul><li>1 trial video (15s) for free</li><li>Or 2 UGC videos as a paid trial</li><li>See my style before you commit</li></ul></div>
     <div class="pack"><h3>Starter</h3><ul><li>1 UGC video (up to 60s)</li><li>2 hook variations</li><li>Raw + edited files</li></ul></div>
     <div class="pack hot"><span class="badge">MOST BOOKED</span><h3>Brand bundle</h3><ul><li>3 UGC videos</li><li>3 hooks each</li><li>30-day ad usage rights</li></ul></div>
   </div>
